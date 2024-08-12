@@ -8,10 +8,15 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import java.util.Collections
 
 class ListAnimalActivity : AppCompatActivity() {
 
     private var tableLayout: TableLayout? = null
+    private val arrNameAnimals by lazy {
+        resources.getStringArray(R.array.array_animal)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -21,6 +26,9 @@ class ListAnimalActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        // Shuffle list animals
+        arrNameAnimals.shuffle()
 
         displayListAnimal()
     }
@@ -32,12 +40,15 @@ class ListAnimalActivity : AppCompatActivity() {
         // 6 dong chinh la 6 table row
         val totalRow = 6
         val totalColumn = 3
+        var index = 0
 
         for (i in 0 until totalRow) {
             val tableRow = TableRow(this)
             for (y in 0 until totalColumn) {
                 val imageView = ImageView(this)
-                imageView.setImageResource(R.drawable.bo)
+                index = (i * 3) + y
+                val resource = resources.getIdentifier(arrNameAnimals[index], "drawable", packageName)
+                imageView.setImageResource(resource)
                 tableRow.addView(imageView)
             }
             tableLayout?.addView(tableRow)
