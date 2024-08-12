@@ -1,9 +1,13 @@
 package com.example.appchonhinh08012024
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.registerForActivityResult
 import androidx.appcompat.app.AppCompatActivity
 import kotlin.random.Random
 
@@ -21,6 +25,10 @@ class MainActivity : AppCompatActivity() {
 
         imgRandom = findViewById(R.id.image_view_random)
         imgUserSelect = findViewById(R.id.image_view_user_select)
+        imgRandom?.setOnClickListener {
+            val intent = Intent(this@MainActivity, ListAnimalActivity::class.java)
+            launcherListAnimal.launch(intent)
+        }
         setImageRandom(imgRandom)
     }
 
@@ -41,5 +49,9 @@ class MainActivity : AppCompatActivity() {
         val indexRandom = Random.nextInt(arrNameAnimals.size)
         val resourceRandom = resources.getIdentifier(arrNameAnimals[indexRandom], "drawable", packageName)
         imageView.setImageResource(resourceRandom)
+    }
+
+    private val launcherListAnimal = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+
     }
 }
