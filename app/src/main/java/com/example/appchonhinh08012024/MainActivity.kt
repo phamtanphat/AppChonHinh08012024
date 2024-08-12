@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         imgRandom = findViewById(R.id.image_view_random)
         imgUserSelect = findViewById(R.id.image_view_user_select)
-        imgRandom?.setOnClickListener {
+        imgUserSelect?.setOnClickListener {
             val intent = Intent(this@MainActivity, ListAnimalActivity::class.java)
             launcherListAnimal.launch(intent)
         }
