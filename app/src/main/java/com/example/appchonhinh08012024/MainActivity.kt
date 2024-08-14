@@ -2,9 +2,11 @@ package com.example.appchonhinh08012024
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.registerForActivityResult
@@ -15,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     private var imgRandom: ImageView? = null
     private var imgUserSelect: ImageView? = null
+    private var resourceRandom: Int = 0
     private val arrNameAnimals by lazy {
         resources.getStringArray(R.array.array_animal)
     }
@@ -47,7 +50,7 @@ class MainActivity : AppCompatActivity() {
     private fun setImageRandom(imageView: ImageView?) {
         imageView ?: return
         val indexRandom = Random.nextInt(arrNameAnimals.size)
-        val resourceRandom = resources.getIdentifier(arrNameAnimals[indexRandom], "drawable", packageName)
+        resourceRandom = resources.getIdentifier(arrNameAnimals[indexRandom], "drawable", packageName)
         imageView.setImageResource(resourceRandom)
     }
 
@@ -56,6 +59,12 @@ class MainActivity : AppCompatActivity() {
             val resource = result.data?.getIntExtra("resource", 0) ?: return@registerForActivityResult
             if (resource == 0) return@registerForActivityResult
             imgUserSelect?.setImageResource(resource)
+            if (resource == resourceRandom) {
+                Toast.makeText(this@MainActivity, "Chinh xac!!!", Toast.LENGTH_LONG).show()
+            }
+            Handler().postDelayed({
+                setImageRandom(imgRandom)
+            }, 2000)
         }
     }
 }
