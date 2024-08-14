@@ -52,6 +52,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val launcherListAnimal = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-
+        if (result.resultCode == RESULT_OK) {
+            val resource = result.data?.getIntExtra("resource", 0) ?: return@registerForActivityResult
+            if (resource == 0) return@registerForActivityResult
+            imgUserSelect?.setImageResource(resource)
+        }
     }
 }
